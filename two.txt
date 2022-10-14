@@ -1,0 +1,16 @@
+CREATE TABLE bill(
+id int PRIMARY KEY,
+product_name VARCHAR(255),
+costumer_name VARCHAR(255),
+country VARCHAR(255),
+gender VARCHAR(255),
+email VARCHAR(255),
+price INT
+)
+SELECT SUM(price) FROM bill WHERE country = 'US';
+SELECT MIN(price) FROM bill GROUP BY product_name;
+SELECT max(price) FROM bill GROUP BY country;
+SELECT sum(price) FROM bill GROUP BY gender;
+SELECT avg(price) FROM bill GROUP BY country;
+UPDATE bill SET price = 1225 WHERE product_name = 'Tiêu bắc';
+DELETE FROM bill WHERE price BETWEEN 900 AND 1200;
