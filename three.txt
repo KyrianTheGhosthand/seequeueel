@@ -1,0 +1,163 @@
+CREATE TABLE accout(
+id INT PRIMARY KEY,
+full_name VARCHAR(100),
+phone INT,
+email VARCHAR(50),
+created_date DATETIME
+)
+CREATE TABLE address(
+id_address INT NOT NULL,
+address VARCHAR(255),
+created_date DATETIME,
+FOREIGN KEY (id_address) REFERENCES accout(id)
+)
+
+INSERT INTO accout (id, full_name, phone, email) VALUES 
+(1, 'Vinicius Junior', 0123456789, 'vinijr@realmadrid.com'),
+(2, 'Rodrygo Goes', 0987654321, 'rgoes@realmadrid.es'),
+(3, 'Karim Benzema', 0111222333, 'bigbenz@realmadrid.com'),
+(4, 'Toni Kroos', 0444555666, 'tonikroos8@realmadrid.com'),
+(5, 'Luka Modrid', 0777888999, 'lukamodric@realmadrid.es'),
+(6, 'Aurelien Tchoameni', 0181818188, 'atchou@realmadird.es'),
+(7, 'Eduoardo Camavinga', 0121212122, 'camavinga@realmadrid.com'),
+(8, 'Eden Hazard', 0212121112, 'hazard@realmadrid.com'),
+(9, 'Thibout Curtois', 0333222111, 'curtois@realmadrid.com'),
+(10, 'David Alaba', 0666555444, 'alaba@realmadrid.com'); 
+
+INSERT INTO address (id_address, address) VALUES
+(1, 'C. Gral. Álvarez de Castro, 37'),
+(2, 'Calle Prof. Waksman, 27'),
+(3, 'Calle de Manuel Fernández y González, 53'),
+(4, 'Calle de Covarrubias, 17'),
+(5, 'Calle del Dr. Fleming, 82'),
+(6, 'Calle Agustín de Foxá, 57'),
+(7, 'Calle de Jorge Juan, 69'),
+(8, 'Calle de Manuel Fernández y González, 53'),
+(9, 'Calle Gutiérrez Solana, 46'),
+(10, 'Calle de la Infanta Mercedes, 14')
+
+SELECT * FROM accout INNER JOIN address ON accout.id = address.id_address
+
+CREATE TABLE accout(
+id INT PRIMARY KEY,
+full_name VARCHAR(100),
+phone INT,
+email VARCHAR(50),
+created_date DATETIME
+)
+CREATE TABLE address(
+id_address INT NOT NULL,
+address VARCHAR(255),
+created_date DATETIME,
+id INT REFERENCES accout(id)
+)
+
+INSERT INTO accout (id, full_name, phone, email) VALUES 
+(1, 'Vinicius Junior', 0123456789, 'vinijr@realmadrid.com'),
+(2, 'Rodrygo Goes', 0987654321, 'rgoes@realmadrid.es'),
+(3, 'Karim Benzema', 0111222333, 'bigbenz@realmadrid.com'),
+(4, 'Toni Kroos', 0444555666, 'tonikroos8@realmadrid.com'),
+(5, 'Luka Modrid', 0777888999, 'lukamodric@realmadrid.es'),
+(6, 'Aurelien Tchoameni', 0181818188, 'atchou@realmadird.es'),
+(7, 'Eduoardo Camavinga', 0121212122, 'camavinga@realmadrid.com'),
+(8, 'Eden Hazard', 0212121112, 'hazard@realmadrid.com'),
+(9, 'Thibout Curtois', 0333222111, 'curtois@realmadrid.com'),
+(10, 'David Alaba', 0666555444, 'alaba@realmadrid.com');
+
+INSERT INTO address (id_address, address, id) VALUES
+(1, 'Calle de Manuel Fernández y González, 53', 1),
+(1, 'Calle de Manuel Fernández y González, 53', 2),
+(1, 'Calle de Manuel Fernández y González, 53', 3),
+(1, 'Calle de Manuel Fernández y González, 53', 4),
+(1, 'Calle de Manuel Fernández y González, 53', 5),
+(1, 'Calle de Manuel Fernández y González, 53', 6),
+(2, 'Calle de Jorge Juan, 69',7),
+(2, 'Calle de Jorge Juan, 69', 8),
+(2, 'Calle de Jorge Juan, 69',9),
+(2, 'Calle de Jorge Juan, 69', 10)
+
+SELECT * FROM accout INNER JOIN address ON accout.id = address.id
+
+CREATE TABLE accout(
+id_account INT PRIMARY KEY,
+full_name VARCHAR(100),
+phone INT,
+email VARCHAR(50),
+created_date DATETIME
+);
+
+CREATE TABLE address(
+id_address INT PRIMARY KEY ,
+address VARCHAR(255),
+created_date DATETIME
+);
+
+CREATE TABLE accountaddress(
+id_account INT NOT NULL,
+id_address INT NOT NULL,
+FOREIGN KEY (id_account) REFERENCES accout(id_account),
+FOREIGN KEY (id_address) REFERENCES address(id_address),
+UNIQUE(id_account, id_address)
+)
+
+INSERT INTO accout (id_account, full_name, phone, email) VALUES 
+(1, 'Vinicius Junior', 0123456789, 'vinijr@realmadrid.com'),
+(2, 'Rodrygo Goes', 0987654321, 'rgoes@realmadrid.es'),
+(3, 'Karim Benzema', 0111222333, 'bigbenz@realmadrid.com'),
+(4, 'Toni Kroos', 0444555666, 'tonikroos8@realmadrid.com'),
+(5, 'Luka Modrid', 0777888999, 'lukamodric@realmadrid.es'),
+(6, 'Aurelien Tchoameni', 0181818188, 'atchou@realmadird.es'),
+(7, 'Eduoardo Camavinga', 0121212122, 'camavinga@realmadrid.com'),
+(8, 'Eden Hazard', 0212121112, 'hazard@realmadrid.com'),
+(9, 'Thibout Curtois', 0333222111, 'curtois@realmadrid.com'),
+(10, 'David Alaba', 0666555444, 'alaba@realmadrid.com');
+
+INSERT INTO address (id_address, address) VALUES
+(1, 'C. Gral. Álvarez de Castro, 37'),
+(2, 'Calle Prof. Waksman, 27'),
+(3, 'Calle de Manuel Fernández y González, 53'),
+(4, 'Calle de Covarrubias, 17')
+
+SELECT * FROM accountaddress
+JOIN accout ON accout.id_account = accountaddress.id_account
+JOIN address ON accountaddress.id_address = address.id_address
+
+CREATE TABLE accout(
+id_account INT PRIMARY KEY,
+full_name VARCHAR(100),
+phone INT,
+email VARCHAR(50),
+created_date DATETIME
+);
+
+CREATE TABLE address(
+id_address INT PRIMARY KEY ,
+address VARCHAR(255),
+created_date DATETIME,
+FOREIGN KEY (id_address) REFERENCES accout(id_account) ON DELETE CASCADE ON UPDATE cascade
+)
+INSERT INTO accout (id_account, full_name, phone, email) VALUES 
+(1, 'Vinicius Junior', 0123456789, 'vinijr@realmadrid.com'),
+(2, 'Rodrygo Goes', 0987654321, 'rgoes@realmadrid.es'),
+(3, 'Karim Benzema', 0111222333, 'bigbenz@realmadrid.com'),
+(4, 'Toni Kroos', 0444555666, 'tonikroos8@realmadrid.com'),
+(5, 'Luka Modrid', 0777888999, 'lukamodric@realmadrid.es'),
+(6, 'Aurelien Tchoameni', 0181818188, 'atchou@realmadird.es'),
+(7, 'Eduoardo Camavinga', 0121212122, 'camavinga@realmadrid.com'),
+(8, 'Eden Hazard', 0212121112, 'hazard@realmadrid.com'),
+(9, 'Thibout Curtois', 0333222111, 'curtois@realmadrid.com'),
+(10, 'David Alaba', 0666555444, 'alaba@realmadrid.com');
+
+INSERT INTO address (id_address, address) VALUES
+(1, 'C. Gral. Álvarez de Castro, 37'),
+(2, 'Calle Prof. Waksman, 27'),
+(3, 'Calle de Manuel Fernández y González, 53'),
+(4, 'Calle de Covarrubias, 17'),
+(5, 'Calle del Dr. Fleming, 82'),
+(6, 'Calle Agustín de Foxá, 57'),
+(7, 'Calle de Jorge Juan, 69'),
+(8, 'Calle de Manuel Fernández y González, 53'),
+(9, 'Calle Gutiérrez Solana, 46'),
+(10, 'Calle de la Infanta Mercedes, 14')
+
+DELETE * FROM accout;
