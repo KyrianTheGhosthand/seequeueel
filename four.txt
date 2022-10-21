@@ -1,0 +1,65 @@
+
+CREATE TABLE Orders(
+order_id INT PRIMARY KEY,
+amount INT,
+customer INT
+)
+CREATE TABLE Customers(
+customer_id int PRIMARY KEY,
+first_name varchar(30)
+)
+INSERT INTO Customers VALUES 
+(1, 'John'),
+(2, 'Robert'),
+(3, 'David'),
+(4, 'John'),
+(5, 'Betty')
+INSERT INTO Orders VALUES 
+(1, 200, 10),
+(2, 500, 3),
+(3, 300, 6),
+(4, 800, 5),
+(5, 150, 8)
+SELECT Customers.customer_id, Customers.first_name, Orders.amount
+FROM Orders
+RIGHT JOIN Customers
+ON Orders.customer = Customers.customer_id;
+SELECT Orders.customer, Customers.first_name, Orders.amount
+FROM Customers
+right JOIN Orders
+ON Customers.customer_id = Orders.customer;
+SELECT Customers.customer_id, Customers.first_name, Orders.amount
+FROM Customers
+FULL OUTER JOIN Orders
+ON Customers.customer_id = Orders.customer;
+
+CREATE TABLE Customers (
+  id INT,
+  first_name VARCHAR(40),
+  last_name VARCHAR(40),
+  age INT,
+  country VARCHAR(10)
+  )
+INSERT INTO Customers
+VALUES
+(1, 'John', 'Doe', 31, 'USA'),
+(2, 'Robert', 'Luna', 22, 'USA'),
+(3, 'David', 'Robinson', 22, 'UK'),
+(4, 'John', 'Reinhardt', 25, 'UK'),
+(5, 'Betty', 'Doe', 28, 'UAE')
+SELECT * FROM Customers WHERE age = (SELECT MIN(age) FROM Customers)
+CREATE TABLE paintings (
+id INT,
+NAME VARCHAR(30),
+artist_id INT,
+listed_price FLOAT)
+INSERT INTO paintings VALUES
+(11, 'Miracle', 1, 200.00)
+(12, 'Sunshine', 1, 700.00),
+(13, 'Pretty woman', 2, 2800.00),
+(14, 'Handsome man', 2, 2300.00),
+(15, 'Barbie', 3, 250.00),
+(16, 'Cool painting', 3, 5000.00),
+(17, 'Black square #1000', 3, 50.00),
+(18, 'Mountains', 4, 1300.00)
+SELECT * FROM paintings WHERE listed_price > (SELECT AVG(listed_price) FROM paintings)
