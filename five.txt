@@ -1,0 +1,122 @@
+
+CREATE TABLE vendor(
+id INT PRIMARY KEY,
+NAME VARCHAR(255),
+location VARCHAR(255),
+id_item INT,
+amount INT,
+FOREIGN KEY (id_item) REFERENCES item(id)
+);
+CREATE TABLE item(
+id INT PRIMARY KEY,
+NAME VARCHAR(30),
+id_vendor INT,
+amount INT,
+FOREIGN KEY (id_vendor) REFERENCES vendor(id)
+);
+CREATE TABLE customer(
+id INT PRIMARY KEY,
+NAME VARCHAR(50),
+id_item INT,
+amount INT,
+FOREIGN KEY (id_item) REFERENCES item(id)
+);
+CREATE TABLE discount(
+id INT PRIMARY KEY,
+amount INT,
+id_items INT,
+FOREIGN KEY (id_item) REFERENCES item(id)
+);
+CREATE TABLE itemreview(
+id_item INT,
+id_review INT,
+id_customer INT
+content VARCHAR(255)
+)
+CREATE TABLE Major(
+id VARCHAR(20) PRIMARY KEY,
+major_name VARCHAR(50),
+phone int
+);
+CREATE TABLE student(
+id INT PRIMARY KEY,
+NAME VARCHAR(100),
+major_id VARCHAR(20),
+YEAR INT,
+hometown VARCHAR(30),
+FOREIGN KEY (major_id) REFERENCES major(id)
+)
+
+CREATE TABLE Teacher(
+id INT PRIMARY key,
+NAME VARCHAR(100),
+major_id VARCHAR(20),
+salary INT,
+FOREIGN KEY (major_id) REFERENCES Major(id) 
+); 
+
+CREATE TABLE Topic (
+id VARCHAR(20) PRIMARY KEY,
+NAME VARCHAR (100),
+price INT,
+location VARCHAR(100)
+);
+CREATE TABLE Guide (
+student_id INT PRIMARY KEY,
+topic_id VARCHAR(20),
+teacher_id INT,
+result INT,
+FOREIGN KEY (student_id) REFERENCES Student(id),
+FOREIGN KEY (teacher_id) REFERENCES Teacher(id),
+FOREIGN KEY (topic_id) REFERENCES Topic(id) 
+);
+INSERT INTO major VALUES
+('Geo', 'Dia ly va QLTN', 3855413), 
+('Math', 'Toan', 3855411), 
+('Bio', 'Cong nghe Sinh hoc', 3855412);
+INSERT INTO teacher (id, NAME, salary, major_id) VALUES
+(11, 'Thanh Xuan', 700, 'Geo'), 
+(12, 'Thu Minh', 500, 'Math'), 
+(13, 'Chu Tuan', 650, 'Geo'), 
+(14, 'Le Thi Lan', 500, 'Bio'), 
+(15, 'Tran Xoay', 900, 'Math');
+INSERT INTO student VALUES
+(1, 'Le Van Sao', 'Bio', 1990, 'Nghe An'), 
+(2, 'Nguyen Thi My', 'Geo', 1990, 'Thanh Hoa'), 
+(3, 'Bui Xuan Duc', 'Math', 1992, 'Ha Noi'), 
+(4, 'Nguyen Van Tung', 'Bio', null, 'Ha Tinh'), 
+(5, 'Le Khanh Linh', 'Bio', 1989, 'Ha Nam'), 
+(6, 'Tran Khac Trong', 'Geo', 1991, 'Thanh Hoa'), 
+(7, 'Le Thi Van', 'Math', null, 'null'), 
+(8, 'Hoang Van Duc', 'Bio', 1992, 'Nghe An');
+INSERT INTO topic VALUES 
+('Dt01', 'GIS', 100, 'Nghe An'),
+('Dt02', 'ARC GIS', 500, 'Nam Dinh'),
+('Dt03', 'Spatial DB', 100, 'Ha Tinh'),
+('Dt04', 'MAP', 300, 'Quang Binh');
+INSERT INTO guide VALUES
+(1, 'Dt01', 13, 8),
+(2, 'Dt03', 14, 0),
+(3, 'Dt03', 12, 10),
+(5, 'Dt04', 14, 7),
+(6, 'Dt01', 13, Null),
+(7, 'Dt04', 11, 10),
+(8, 'Dt03', 15, 6);
+SELECT teacher.id, teacher.name, major.major_name
+FROM major
+RIGHT JOIN teacher
+on major.id = teacher.major_id;
+SELECT teacher.id, teacher.name, major.major_name
+FROM major
+JOIN teacher
+ON major.id = teacher.major_id
+JOIN student
+ON major.id = student.major_id
+GROUP BY student.major_id
+HAVING COUNT(student.major_id) >= 3
+SELECT guide.result, student.id, student.name, student.major_id, student.year, student.hometown
+FROM guide
+right JOIN student 
+ON student.id = guide.student_id
+HAVING guide.result IS NULL
+
