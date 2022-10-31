@@ -1,0 +1,99 @@
+CREATE TABLE student(
+id INT PRIMARY KEY AUTO_INCREMENT,
+class ENUM('F', 'P', 'J', 'S', 'E') NOT NULL,
+first_name VARCHAR(30) NOT NULL,
+last_name VARCHAR(30) NOT NULL,
+gender ENUM('Male', 'Female', 'Null') NOT null,
+birthday DATE NOT NULL
+);
+CREATE TABLE course (
+id INT PRIMARY KEY AUTO_INCREMENT,
+course VARCHAR(30) NOT NULL
+);
+CREATE TABLE grade (
+id_student INT,
+id_course INT,
+attempts INT DEFAULT '1',
+grade ENUM('0','1','2','3','4','5','6','7','8','9','10') DEFAULT '1',
+FOREIGN KEY (id_student) REFERENCES student(id),
+FOREIGN KEY (id_course) REFERENCES course(id)
+)
+
+INSERT INTO student VALUES
+(DEFAULT, 'E', 'Romain', 'Grange', 'Male', '1988-07-21'),
+(DEFAULT, 'S', 'Ted', 'Van de Pavert', 'Male', '1992-01-06'),
+(DEFAULT, 'F', 'Lucien', 'Kouko', 'Male', '2004-02-03'),
+(DEFAULT, 'F', 'Auturo', 'Macias', 'Male', '2004-01-24'),
+(DEFAULT, 'F', 'Dynel', 'Simeu', 'Male', '2002-03-13'),
+(DEFAULT, 'F', 'Jurgen', 'Ekkelenkamp', 'Male', '2000-04-05'),
+(DEFAULT, 'F', 'Gerson', 'Ambrosio', 'Male', '2004-06-25'),
+(DEFAULT, 'F', 'Burak', 'Ince', 'Male', '2003-01-20'),
+(DEFAULT, 'F', 'Fedrico', 'Sosa', 'Male', '2003-07-27'),
+(DEFAULT, 'F', 'Claudio', 'Molina', 'Male', '2002-02-14'),
+(DEFAULT, 'F', 'Santiago', 'Cartagena', 'Male', '2001-09-01'),
+(DEFAULT, 'F', 'Carlos', 'Duran', 'Male', '2004-02-25'),
+(DEFAULT, 'F', 'Bongokuhle', 'Hlongwane', 'Male', '2000-06-20'),
+(DEFAULT, 'P', 'Joey', 'Konings', 'Male', '1998-04-21'),
+(DEFAULT, 'P', 'Dmytro', 'Riznyk', 'Male', '1999-01-30')
+
+INSERT INTO course VALUES
+(DEFAULT, 'Quickness'),
+(DEFAULT, 'Agility & Balance'),
+(DEFAULT, 'Strength'),
+(DEFAULT, 'Endurance'),
+(DEFAULT, 'Defense'),
+(DEFAULT, 'Attack'),
+(DEFAULT, 'F3'),
+(DEFAULT, 'Shooting'),
+(DEFAULT, 'Passing'),
+(DEFAULT, 'Crossing'),
+(DEFAULT, 'Aerial'),
+(DEFAULT, 'Free Kick'),
+(DEFAULT, 'Corner'),
+(DEFAULT, 'Penalty'),
+(DEFAULT, 'Long Throw')
+
+INSERT INTO grade VALUES
+(1, 1, 1, 5),
+(1 ,1, 2, 3),
+(1, 2, 1, 5),
+(1, 2, 2, 5),
+(1, 3, 1, 4),
+(1, 3, 2, 3),
+(6, 1, 1, 6),
+(6, 1, 2, 7),
+(6, 2, 1, 7),
+(6, 2, 2, 8),
+(7, 2, 1, 6),
+(7, 2, 2, 7),
+(7, 2, 3, 8),
+(7, 3, 1, 3),
+(7, 3, 2, 4),
+(7, 3, 3, 4),
+(7, 4, 1, 5),
+(7, 4, 2, 6),
+(10, 1, 1, 5),
+(10, 1, 2, 6),
+(10, 2, 1, 6),
+(10, 2, 2, 7),
+(10, 3, 1, 6),
+(10, 3, 2, 7),
+(10, 3, 3, 8),
+(10, 4, 1, 6),
+(10, 4, 2, 7),
+(10, 5, 1, 5),
+(10, 5, 1, 6),
+(13, 1, 1, 8),
+(13, 1, 2, 9),
+(13, 2, 1, 5),
+(13, 2, 2, 6)
+
+CREATE VIEW last_grade
+AS 
+SELECT id_student, id_course, MAX(attempts), grade AS last_grade
+FROM grade 
+GROUP BY id_student, id_course
+CREATE PROCEDURE results @id_student INT
+AS 
+SELECT * FROM grade
+WHERE id_student = @id_student
